@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quefazer</title>
+    <link rel="icon" type="image/x-icon" href="image/ico.png">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+
+    </main>
+    <footer
+    ></footer>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

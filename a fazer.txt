@@ -1,0 +1,33 @@
+--NÃO IMPORTANTE--
+
+MODIFICAR {
+    NAVBAR {
+        COR
+        LOGO
+    }
+    SEARCHBAR {
+        ESILO
+        POSIÇÃO
+        FORMATO
+    }
+    BODY {
+        MAX-WIDTH: 1920PX
+    }
+    CATEGORIAS {
+        FORMATO {
+            RETANGULAR
+            LINHAS E COLUNAS
+        }
+    }
+}
+
+
+--IMPORTANTE--
+
+IMPLEMENTAR {
+    LOGIN
+    CADASTRO
+    AVALIACAO
+    JS
+    BANCO DE DADOS
+}
