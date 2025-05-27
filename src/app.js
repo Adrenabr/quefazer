@@ -20,3 +20,15 @@ app.listen(port, () => {
 });
 
 module.exports = app;   // exporta o app para testes ou outros modulos
+
+// verificar posicao de imports
+// ... imports ...
+const anunciosRoutes = require('./routes/anuncios.routes');
+const usuariosRoutes = require('./routes/usuarios.routes');
+const clientesRoutes = require('./routes/clientes.routes');
+
+app.use('api', anunciosRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
+app.use('api', usuariosRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
+app.use('api', clientesRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
+
+// ... error handling e server start ...
