@@ -1,5 +1,15 @@
 const usuariosService = require('../services/usuariosService');
 
+exports.listarUsuarios = async (req, res) => {
+    try {
+        const usuarios = await usuariosService.listarTodos();
+        res.json(usuarios);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao listar usuarios.'});
+    }
+};
+
 exports.cadastrarUsuario = async (req, res) => {
     try {
         const novoUsuario = await usuariosService.criar(req.body);
