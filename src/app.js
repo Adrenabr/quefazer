@@ -1,34 +1,36 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;  //porta definida para o ambiente, porem deixei 3000 por padrao
+const port = process.env.PORT || 3000;
 
-// middleware para analisar o corpo das requisicoes
+// Importar as rotas
+const anunciosRoutes = require('./routes/anuncios.routes');
+const usuariosRoutes = require('./routes/usuarios.routes');
+const clientesRoutes = require('./routes/clientes.routes');
+
+// Middleware para analisar o corpo das requisições (JSON e urlencoded)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// abaixo onde adiciona rotas da aplicacao
+// Middleware de logging ..* INATIVO *..
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
-// middleware para tratamento de erros*
+// Montar as rotas da aplicação
+app.use('/api/anuncios', anunciosRoutes);
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/clientes', clientesRoutes);
+
+// Middleware para tratamento de erros (deve ser definido APÓS as rotas)
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Algo deu errado!');
 });
 
-// inicia o servidor
+// Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
-module.exports = app;   // exporta o app para testes ou outros modulos
-
-// verificar posicao de imports
-// ... imports ...
-const anunciosRoutes = require('./routes/anuncios.routes');
-const usuariosRoutes = require('./routes/usuarios.routes');
-const clientesRoutes = require('./routes/clientes.routes');
-
-app.use('api', anunciosRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
-app.use('api', usuariosRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
-app.use('api', clientesRoutes); // Todas as rotas de anúncios começarão com /api/anuncios
-
-// ... error handling e server start ...
+module.exports = app; // Exportar o app para testes ou outros módulos
