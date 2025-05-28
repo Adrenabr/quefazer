@@ -1,8 +1,7 @@
 -- Cria tabela clientes
 CREATE TABLE clientes (
     cliente_id SERIAL PRIMARY KEY,      -- PK auto-incrementável
-    nome_cliente VARCHAR(100) NOT NULL, -- O responsável no caso de PJ
-    email VARCHAR(100) UNIQUE,          -- verificar de quem vai ser o email
+    nome_cliente VARCHAR(100),          -- O responsável no caso de PJ
     tipo_cliente VARCHAR(2) CHECK (tipo_cliente IN ('PF', 'PJ')) NOT NULL,  -- Tipo de cliente (Pessoa Física ou Jurídica), com constraint CHECK para garantir valores válidos e NOT NULL para garantir que seja sempre especificado.
     cpf VARCHAR(14) UNIQUE,             -- CPF do cliente (apenas para PF), com índice único condicional para permitir nulos mas garantir unicidade quando preenchido.
     cnpj VARCHAR(18) UNIQUE,            -- CNPJ do cliente (apenas para PJ), com índice único condicional semelhante ao CPF.
