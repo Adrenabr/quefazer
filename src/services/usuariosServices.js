@@ -22,4 +22,4 @@ exports.obterPorId = async (id) => {
     return rows[0];
 };
 
-// ... outras funções para criar, atualizar, deletar anúncios
+// ... outras funções para criar, atualizar, deletar
