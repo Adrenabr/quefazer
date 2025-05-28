@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
 
+router.get('/usuarios', usuariosController.listarUsuarios);
+
 // exemplo de rota para criar um novo usuario
 router.post('/usuarios', usuariosController.cadastrarUsuario);
 
