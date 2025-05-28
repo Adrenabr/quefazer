@@ -1,4 +1,4 @@
-require('dotenv').condig();
+require('dotenv').condig(); // Carrega as variáveis de ambiente do .env
 
 module.exports = {
     db: {
@@ -8,6 +8,6 @@ module.exports = {
         password: process.env.DB_PASSWORD,
         port: parseInt(process.env.PORT || '5432'),
     },
-    port: parseInt(process.env.PORT || '3000'),
+    port: parseInt(process.env.PORT || '3000', 10),
     // outras configuracoes aqui
 };

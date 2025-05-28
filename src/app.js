@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const config = require('./config/config'); // Importa o arquivo de configuração
+const port = config.port;   // Obtém a porta do arquivo de configuração
 
 // Importar as rotas
 const anunciosRoutes = require('./routes/anuncios.routes');
