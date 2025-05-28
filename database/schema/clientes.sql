@@ -25,7 +25,7 @@ CREATE TABLE clientes (
         (tipo_cliente = 'PJ' AND cnpj IS NOT NULL AND cpf IS NULL)
     ),
     -- Constraint para garantir que se um valor for inserido, ele tenha o formato correto (opcional, pode ser feito na aplicação)
-    CHECK (tipo_cliente = 'PF' OR (cnpj IS NULL OR LENGTH(cnpj) = 18))
+    CHECK (tipo_cliente = 'PF' OR (cnpj IS NULL OR LENGTH(cnpj) = 18)),
     CHECK (tipo_cliente = 'PJ' OR (cpf IS NULL OR LENGTH(cpf) = 14))
 );
 -- Cria indices para busca por CPF e CNPJ e garantem a unicidade dos valores não nulos.
