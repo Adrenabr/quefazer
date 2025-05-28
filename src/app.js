@@ -29,9 +29,4 @@ app.use((err, req, res, next) => {
     res.status(500).send('Algo deu errado!');
 });
 
-// Iniciar o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
-
 module.exports = app; // Exportar o app para testes ou outros módulos
