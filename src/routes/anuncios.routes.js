@@ -2,15 +2,21 @@ const express = require('express');
 const router = express.Router();
 const anunciosController = require('../controllers/anunciosController');
 
-// exemplo de rota para listar todos os anuncioS(plural), nao sei se vou usar
-router.get('/anuncios', anunciosController.listarAnuncios);
+// Rotas para a entidade "anuncios"
 
-// exemplo de rota para criar um novo anuncio
-router.post('/anuncios', anunciosController.criarAnuncio);
+// GET /api/anuncios - Listar todos os anúncios
+router.get('/', anunciosController.listarAnuncios);
 
-// exemplo de rota para obter um anuncio por ID
-router.get('/anuncios/:id', anunciosController.obterAnuncio);
+// GET /api/anuncios/:id - Obter um anúncio por ID
+router.get('/:id', anunciosController.obterAnuncioPorId);
 
-// outras rotas aqui
+// POST /api/anuncios - Criar um novo anúncio
+router.post('/', anunciosController.criarAnuncio);
+
+// PUT /api/anuncios/:id - Atualizar um anúncio existente
+router.put('/:id', anunciosController.atualizarAnuncio);
+
+// DELETE /api/anuncios/:id - Excluir um anúncio
+router.delete('/:id', anunciosController.excluirAnuncio);
 
 module.exports = router;

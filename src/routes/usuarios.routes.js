@@ -2,14 +2,24 @@ const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
 
-router.get('/usuarios', usuariosController.listarUsuarios);
+// Rotas para a entidade "usuarios"
 
-// exemplo de rota para criar um novo usuario
-router.post('/usuarios', usuariosController.cadastrarUsuario);
+// GET /api/usuarios - Listar todos os usuários (pode ser restrito)
+router.get('/', usuariosController.listarUsuarios);
 
-// exemplo de rota para obter um anuncio por ID
-router.get('/usuarios/:id', usuariosController.obterUsuario);
+// GET /api/usuarios/:id - Obter um usuário por ID (pode ser restrito)
+router.get('/:id', usuariosController.obterUsuarioPorId);
 
-// outras rotas aqui
+// POST /api/usuarios/registrar - Registrar um novo usuário
+router.post('/registrar', usuariosController.registrarUsuario);
+
+// POST /api/usuarios/login - Fazer login
+router.post('/login', usuariosController.loginUsuario);
+
+// PUT /api/usuarios/:id - Atualizar um usuário (pode ser restrito ao próprio usuário ou admin)
+router.put('/:id', usuariosController.atualizarUsuario);
+
+// DELETE /api/usuarios/:id - Excluir um usuário (geralmente restrito a admin)
+router.delete('/:id', usuariosController.excluirUsuario);
 
 module.exports = router;
