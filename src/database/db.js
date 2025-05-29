@@ -1,7 +1,7 @@
-const { pool } = require('pg');
-const config = require('../config/config'); // criar arquivo de configuracao*
+const { Pool } = require('pg');
+const config = require('../config/config');
 
-const pool = new pool ({
+const pool = new Pool({
     user: config.db.user,
     host: config.db.host,
     database: config.db.database,
@@ -9,9 +9,13 @@ const pool = new pool ({
     port: config.db.port,
 });
 
-pool.on('error', (err, client) => {
-    console.error('Erro inesperado no cliente do pool', err);
-    process.exit(-1);
-});
+// Testar a conexão
+pool.connect()
+    .then(() => {
+        console.log('Conectado ao banco de dados PostgreSQL com sucesso!');
+    })
+    .catch(err => {
+        console.error('Erro ao conectar ao banco de dados PostgreSQL:', err);
+    });
 
-module.export = { pool };
+module.exports = pool;
