@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const clientesController = require('../controllers/clientesController');
 
-router.get('/clientes', clientesController.listarClientes);
+// Rotas para a entidade "clientes"
 
-// exemplo de rota para criar um novo cliente
-router.post('/clientes', clientesController.cadastrarCliente);
+// GET /api/clientes - Listar todos os clientes (pode ser restrito)
+router.get('/', clientesController.listarClientes);
 
-// exemplo de rota para obter um anuncio por ID
-router.get('/clientes/:id', clientesController.obterCliente);
+// POST /api/clientes - Cadastrar cliente // revisar
+router.post('/cadastro', clientesController.cadastrarCliente);
+
+// GET /api/clientes/:id - Obter um cliente pelo ID
+router.get('/:id', clientesController.obterCliente);
 
 // outras rotas aqui
 
