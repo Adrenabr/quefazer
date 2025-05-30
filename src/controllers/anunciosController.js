@@ -1,13 +1,15 @@
 const Anuncio = require('../models/anuncio'); // Importa o model de Anuncio
+const anunciosService = require('../services/anunciosService');
 
-// Função para listar todos os anúncios
+
 const listarAnuncios = async (req, res) => {
     try {
-        const anuncios = await Anuncio.getAllAnuncios();
+        const filtros = req.query;
+        const anuncios = await anunciosService.listarAnunciosComFiltros(filtros);
         res.status(200).json(anuncios);
     } catch (error) {
         console.error('Erro ao listar anúncios:', error);
-        res.status(500).json({ error: 'Erro ao buscar anúncios' });
+        res.status(500).json({ error: error.message || 'Erro ao buscar anúncios' });
     }
 };
 
@@ -30,12 +32,14 @@ const obterAnuncioPorId = async (req, res) => {
 // Função para criar um novo anúncio
 const criarAnuncio = async (req, res) => {
     const anuncioData = req.body;
+    const usuarioLogado = req.usuario; // Supondo que você tem um middleware de autenticação
+
     try {
-        const novoAnuncio = await Anuncio.createAnuncio(anuncioData);
+        const novoAnuncio = await anunciosService.criarAnuncioComValidacao(anuncioData, usuarioLogado);
         res.status(201).json(novoAnuncio);
     } catch (error) {
         console.error('Erro ao criar anúncio:', error);
-        res.status(500).json({ error: 'Erro ao criar anúncio' });
+        res.status(400).json({ error: error.message }); // Usando 400 para erros de validação
     }
 };
 

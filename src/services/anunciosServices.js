@@ -1,25 +1,26 @@
-const { pool } = require('../database/db'); // LEMBRAR DE CONFIGURAR O POSTGRESQL!!!!!!!!!!*
+const Anuncio = require('../models/anuncio');
 
-exports.listarTodos = async () => {
-    const { rows } = await pool.query('SELECT * FROM anuncios');    // analisar sobrecarga no bd
-    return rows;
+const listarAnunciosComFiltros = async (filtros) => {
+    // Lógica de negócios para aplicar filtros (ex: categoria, preço)
+    // Pode envolver múltiplas chamadas ao Model ou lógica adicional
+    return await Anuncio.getAllAnuncios(filtros);
 };
 
-exports.criar = async (anuncio) => {
-    const { usuario_id, categoria_id, titulo_anuncio, descricao, preco, localizacao, destaque } = anuncio;
-    const query = `
-    INSERT INTO anuncios (usuario_id, categoria_id, titulo_anuncio, descricao, preco, localizacao, destaque)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING *;
-    `;
-    const values = [usuario_id, categoria_id, titulo_anuncio, descricao, preco, localizacao, destaque];
-    const { rows } = await pool.query(query, values);
-    return rows[0];
+const criarAnuncioComValidacao = async (anuncioData, usuario) => {
+    // Lógica de negócios para validar os dados do anúncio
+    if (!anuncioData.titulo_anuncio || anuncioData.preco <= 0) {
+        throw new Error('Título e preço são obrigatórios e o preço deve ser positivo.');
+    }
+    // Lógica de negócios adicional (ex: verificar se o usuário pode criar anúncios)
+    anuncioData.anunciante_id = usuario.id; // Supondo que o ID do anunciante vem do usuário logado
+    return await Anuncio.createAnuncio(anuncioData);
 };
 
-exports.obterPorId = async (id) => {
-    const { rows } = await pool.query('SELECT * FROM anuncios WHERE anuncio_id = $1', [id]);
-    return rows[0];
-};
+// Outras funções de serviço para lógica de negócios mais complexa
+// como calcular frete, aplicar descontos, etc.
 
-// ... outras funções para criar, atualizar, deletar anúncios
+module.exports = {
+    listarAnunciosComFiltros,
+    criarAnuncioComValidacao,
+    // ... outras funções de serviço
+};
