@@ -35,4 +35,23 @@ exports.obterUsuario = async (req, res) => {
     }
 };
 
-// outras funcoes para criar, atualizar, deletar
+// refazer usuariosController e clientesController seguindo o padrao
+/*
+const Usuario = require('../models/usuario');
+
+const listarUsuarios = async (req, res) => {  };
+const obterUsuarioPorId = async (req, res) => {  };
+const registrarUsuario = async (req, res) => {  };
+const loginUsuario = async (req, res) => {  };
+const atualizarUsuario = async (req, res) => {  };
+const excluirUsuario = async (req, res) => {  };
+
+module.exports = {
+    listarUsuarios,
+    obterUsuarioPorId,
+    registrarUsuario,
+    loginUsuario,
+    atualizarUsuario,
+    excluirUsuario,
+};
+*/

@@ -1,38 +1,81 @@
-const anunciosService = require('../services/anunciosService');
+const Anuncio = require('../models/anuncio'); // Importa o model de Anuncio
 
-exports.listarAnuncios = async (req, res) => {
+// Função para listar todos os anúncios
+const listarAnuncios = async (req, res) => {
     try {
-        const anuncios = await anunciosService.listarTodos();
-        res.json(anuncios);
+        const anuncios = await Anuncio.getAllAnuncios();
+        res.status(200).json(anuncios);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao listar anúncios.'});
+        console.error('Erro ao listar anúncios:', error);
+        res.status(500).json({ error: 'Erro ao buscar anúncios' });
     }
 };
 
-exports.criarAnuncio = async (req, res) => {
-    try {
-        const novoAnuncio = await anunciosService.criar(req.body);
-        res.status(201).json(novoAnuncio);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao criar anúncio.'});
-    }
-};
-
-exports.obterAnuncio = async (req, res) => {
+// Função para obter um anúncio por ID
+const obterAnuncioPorId = async (req, res) => {
     const { id } = req.params;
     try {
-        const anuncio = await anunciosService.obterPorId(id);
+        const anuncio = await Anuncio.getAnuncioById(id);
         if (anuncio) {
-            res.json(anuncio);
+            res.status(200).json(anuncio);
         } else {
-            res.status(404).json({ message: 'Anúncio não encontrado.'});
+            res.status(404).json({ message: 'Anúncio não encontrado' });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao obter anúncio.'});
+        console.error(`Erro ao buscar anúncio com ID ${id}:`, error);
+        res.status(500).json({ error: 'Erro ao buscar anúncio' });
     }
 };
 
-// outras funcoes para criar, atualizar, deletar anuncios
+// Função para criar um novo anúncio
+const criarAnuncio = async (req, res) => {
+    const anuncioData = req.body;
+    try {
+        const novoAnuncio = await Anuncio.createAnuncio(anuncioData);
+        res.status(201).json(novoAnuncio);
+    } catch (error) {
+        console.error('Erro ao criar anúncio:', error);
+        res.status(500).json({ error: 'Erro ao criar anúncio' });
+    }
+};
+
+// Função para atualizar um anúncio existente
+const atualizarAnuncio = async (req, res) => {
+    const { id } = req.params;
+    const anuncioData = req.body;
+    try {
+        const anuncioAtualizado = await Anuncio.updateAnuncio(id, anuncioData);
+        if (anuncioAtualizado) {
+            res.status(200).json(anuncioAtualizado);
+        } else {
+            res.status(404).json({ message: 'Anúncio não encontrado' });
+        }
+    } catch (error) {
+        console.error(`Erro ao atualizar anúncio com ID ${id}:`, error);
+        res.status(500).json({ error: 'Erro ao atualizar anúncio' });
+    }
+};
+
+// Função para excluir um anúncio
+const excluirAnuncio = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const sucesso = await Anuncio.deleteAnuncio(id);
+        if (sucesso) {
+            res.status(204).send(); // 204 No Content para exclusão bem-sucedida
+        } else {
+            res.status(404).json({ message: 'Anúncio não encontrado' });
+        }
+    } catch (error) {
+        console.error(`Erro ao excluir anúncio com ID ${id}:`, error);
+        res.status(500).json({ error: 'Erro ao excluir anúncio' });
+    }
+};
+
+module.exports = {
+    listarAnuncios,
+    obterAnuncioPorId,
+    criarAnuncio,
+    atualizarAnuncio,
+    excluirAnuncio,
+};
