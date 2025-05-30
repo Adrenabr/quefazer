@@ -6,6 +6,10 @@ const morgan = require('morgan'); // Para logging de requisições
 const helmet = require('helmet'); // Para segurança
 const cors = require('cors');   // Para habilitar CORS (se necessário)
 
+// const authMiddleware = require('./middlewares/auth');
+// const errorHandler = require('./middlewares/error');
+// const validate = require('./middlewares/validate');
+
 // Importar as rotas
 const anunciosRoutes = require('./routes/anuncios.routes');
 const usuariosRoutes = require('./routes/usuarios.routes');
