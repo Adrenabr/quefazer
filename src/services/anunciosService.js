@@ -6,7 +6,7 @@ const listarAnunciosComFiltros = async (filtros) => {
     return await Anuncio.getAllAnuncios(filtros);
 };
 
-const criarAnuncioComValidacao = async (anuncioData, usuario) => {
+const cadastrarAnuncioComValidacao = async (anuncioData, usuario) => {
     // Lógica de negócios para validar os dados do anúncio
     if (!anuncioData.titulo_anuncio || anuncioData.preco <= 0) {
         throw new Error('Título e preço são obrigatórios e o preço deve ser positivo.');
@@ -21,6 +21,6 @@ const criarAnuncioComValidacao = async (anuncioData, usuario) => {
 
 module.exports = {
     listarAnunciosComFiltros,
-    criarAnuncioComValidacao,
+    cadastrarAnuncioComValidacao,
     // ... outras funções de serviço
 };

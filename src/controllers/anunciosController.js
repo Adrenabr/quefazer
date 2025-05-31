@@ -29,16 +29,16 @@ const obterAnuncioPorId = async (req, res) => {
     }
 };
 
-// Controlador para criar um novo anúncio
-const criarAnuncio = async (req, res) => {
+// Controlador para cadastrar um novo anúncio
+const cadastrarAnuncio = async (req, res) => {
     const anuncioData = req.body; // Obtém os dados do novo anúncio do corpo da requisição (geralmente em formato JSON).
     const usuarioLogado = req.usuario; // Supondo que você tem um middleware de autenticação que adiciona informações do usuário logado na requisição.
 
     try {
-        const novoAnuncio = await anunciosService.criarAnuncioComValidacao(anuncioData, usuarioLogado); // Chama a função no 'anunciosService' para criar um novo anúncio, possivelmente realizando validações nos dados.
+        const novoAnuncio = await anunciosService.cadastrarAnuncioComValidacao(anuncioData, usuarioLogado); // Chama a função no 'anunciosService' para criar um novo anúncio, possivelmente realizando validações nos dados.
         res.status(201).json(novoAnuncio); // Responde com status 201 (Created) e o novo anúncio criado em JSON.
     } catch (error) {
-        console.error('Erro ao criar anúncio:', error); // Registra o erro no console.
+        console.error('Erro ao cadastrar anúncio:', error); // Registra o erro no console.
         res.status(400).json({ error: error.message }); // Responde com status 400 (Bad Request) e a mensagem de erro, geralmente indicando um problema com os dados da requisição (validação falhou).
     }
 };
@@ -80,7 +80,7 @@ const excluirAnuncio = async (req, res) => {
 module.exports = {
     listarAnuncios,
     obterAnuncioPorId,
-    criarAnuncio,
+    cadastrarAnuncio,
     atualizarAnuncio,
     excluirAnuncio,
 };

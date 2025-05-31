@@ -6,7 +6,7 @@ const listarUsuariosComFiltros = async (filtros) => {
     return await Usuario.getAllUsuarios(filtros);
 };
 
-const registrarUsuarioComValidacao = async (usuarioData, usuario) => {
+const cadastrarUsuarioComValidacao = async (usuarioData, usuario) => {
     // Lógica de negócios para validar os dados do usuario.
     
 };
@@ -14,6 +14,6 @@ const registrarUsuarioComValidacao = async (usuarioData, usuario) => {
 // ... outras funções para criar, atualizar, deletar
 module.exports = {
     listarUsuariosComFiltros,
-    registrarUsuarioComValidacao
+    cadastrarUsuarioComValidacao
     // ... outras funções de serviço
 };
