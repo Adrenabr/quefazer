@@ -1,4 +1,4 @@
-const pool = require('../database/db');
+const pool = require('../database/db'); //Esta linha importa a instância do Pool de conexão com o banco de dados
 // Ao tratar do banco de dados utilizar termos iniciais em ingles*
 // Busca por todos os usuários no banco de dados
 const getAllUsuarios = async () => {
@@ -7,7 +7,7 @@ const getAllUsuarios = async () => {
         return result.rows;
     } catch (error) {
         console.error('Erro ao buscar todos os usuários:', error);
-        throw error;
+        throw error;    // Rejeitar o erro para ser tratado no controlador
     }
 };
 // Busca um usuário pelo ID
