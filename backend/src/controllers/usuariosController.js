@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');    // Importa o model.
+const argon2 = require('argon2');   // Importa biblioteca argon2.
 const usuariosService = require('../services/usuariosService'); // Importa o service.
 
 // Controlador para listar usuários com suporte a filtros.
@@ -25,7 +26,7 @@ const obterUsuarioPorId = async (req, res) => {
         }
     } catch (error) {
         console.error(`Erro ao buscar usuário com ID ${id}:`, error);   // Registra o erro no console, incluindo o ID que estava sendo buscado.
-        res.status(500).json({ error: 'Erro ao buscar anúncio' });  // Responde com status 500 e uma mensagem de erro genérica.
+        res.status(500).json({ error: error.message || 'Erro ao buscar usuário.' });  // Responde com status 500 e uma mensagem de erro genérica.
     }
 };
 
@@ -42,32 +43,18 @@ const cadastrarUsuario = async (req, res) => {
     }
 };
 
-// Controlador para realizar login de usuario.
-const loginUsuario = async (senha, senha_hash) => {
+// Controlador para verificar senha de usuario.
+const verificarSenha = async (senha, senha_hash) => {
     try {
-        return await argon2d.verify(senha, senha_hash); // Retorna true ou false
+        return await argon2.verify(senha, senha_hash); // Retorna true ou false
     } catch (error) {
         console.error('Erro ao verificar senha:', error);
         return false;   // modificar para lançar o erro
     }
 };
 
-// Controlador para atualizar dados de usuario.
-const atualizarUsuario = async (req, res) => {
-    const { id } = req.params;  // Extrai o ID do usuário a ser atualizado da URL.
-    const usuarioData = req.body;   // Obtém os dados atualizados do usuário do corpo da requisição.
-    try {
-        const usuarioAtualizado = await Usuario.updateUsuario(id, usuarioData); // Chama a função no model 'Usuario' para atualizar o usuário com o ID e os novos dados.
-        if (usuarioAtualizado) {
-            res.status(200).json(usuarioAtualizado);    // Se a atualização for bem-sucedida, responde com status 200 e o usuário atualizado em JSON.
-        } else {
-            res.status(404).json({ message: 'Usuário não encontrado.' });   // Se o usuário com o ID fornecido não for encontrado, responde com status 404.
-        }
-    } catch (error) {
-        console.error(`Erro ao atualizar usuário com ID ${id}:`, error); // Registra o erro no console, incluindo o ID.
-        res.status(500).json({ error: 'Erro ao atualizar usuário.' });  // Responde com status 500 e uma mensagem de erro genérica.
-    }
-};
+//Controlador para realizar login de usuario
+const loginUsuario = async () => {};
 
 // Controlador para excluir um usuário, não sei se será utilizado.*
 const excluirUsuario = async (req, res) => {  };
@@ -76,7 +63,7 @@ module.exports = {
     listarUsuarios,
     obterUsuarioPorId,
     cadastrarUsuario,
+    verificarSenha,
     loginUsuario,
-    atualizarUsuario,
     excluirUsuario,
 };
