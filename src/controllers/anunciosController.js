@@ -15,7 +15,7 @@ const listarAnuncios = async (req, res) => {
 
 // Controlador para obter um anúncio específico pelo seu ID
 const obterAnuncioPorId = async (req, res) => {
-    const { id } = req.params;                  // Extrai o parâmetro 'id' da URL (ex: /anuncios/123, onde 123 seria o ID).
+    const { id } = req.params;  // Extrai o parâmetro 'id' da URL (ex: /anuncios/123, onde 123 seria o ID).
     try {
         const anuncio = await Anuncio.getAnuncioById(id); // Chama a função no model 'Anuncio' para buscar um anúncio pelo seu ID.
         if (anuncio) {

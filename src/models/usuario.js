@@ -21,7 +21,7 @@ const getUsuarioById = async (id) => {
     }
 };
 // Cria um usuário, falta verificar a questao do hash da senha***
-const createUsuario = async (usuarioData) => {
+const registerUsuario = async (usuarioData) => {
     const { nome_usuario, senha_hash, email_usuario } = usuarioData; // No momento ta bem magro pra economizar tempo :D
     const query = `
         INSERT INTO usuarios (nome_usuario, senha_hash, email_usuario)
@@ -43,6 +43,6 @@ const createUsuario = async (usuarioData) => {
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
-    createUsuario,
+    registerUsuario,
     // ... outras funções
 };
