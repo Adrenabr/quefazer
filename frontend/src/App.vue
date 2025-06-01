@@ -1,42 +1,43 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
 
   <header>
     <!-- INICIO NAVBAR -->
-    <nav>
-      <div>
-        <router-link to="/">Quefazer</router-link>
-        <button>
-          <span></span>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <router-link class="navbar-brand" to="/">Quefazer</router-link>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div>
-          <li>
-            <router-link to="/">Inicio</router-link>
-          </li>
-          <li>
-            <router-link to="/">Contato</router-link>
-          </li>
-          <li>
-            <router-link to="/">Sobre</router-link>
-          </li>
-          <li>
-            <a href="#" role="button">Categorias</a>
-            <ul>
-              <li><router-link to="">Alimentação</router-link></li>
-              <li><router-link to="">Delivery</router-link></li>
-              <li><router-link to="">Financeiro</router-link></li>
-              <li><router-link to="">Logística</router-link></li>
-              <li><router-link to="">Terraplanagem</router-link></li>
-            </ul>
-            <form action="">
-              <input type="text">
-              <button type="button">Buscar</button>
-            </form>
-          </li>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Inicio</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Contato</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Sobre</router-link>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
+                <ul class="dropdown-menu">
+                  <li><router-link class="dropdown-item" to="">Alimentação</router-link></li>
+                  <li><router-link class="dropdown-item" to="">Delivery</router-link></li>
+                  <li><router-link class="dropdown-item" to="">Financeiro</router-link></li>
+                  <li><router-link class="dropdown-item" to="">Logística</router-link></li>
+                  <li><router-link class="dropdown-item" to="">Terraplanagem</router-link></li>
+                </ul>
+              </li>
+          </ul>
+          <form class="d-flex" action="">
+              <input class="form-control me-2" type="text" placeholder="O que você procura?">
+              <button class="btn btn-primary" type="button">Buscar</button>
+          </form>
         </div>
       </div>
     </nav>
@@ -46,30 +47,31 @@ import HelloWorld from './components/HelloWorld.vue'
   <main>
     <router-view></router-view>
   </main>
-  
+
   <!-- INICIO FOOTER -->
   <footer>
     <hr>
-    <div>
-      <div>
-        <router-link to="">Contato</router-link>
-        <router-link to="">Quem somos</router-link>
-        <router-link to="">Trabalhe conosco</router-link>
+    <div class="row">
+      <div class="col-sm-4">
+        <p><router-link class="link-footer" to="">Contato</router-link></p>
+        <p><router-link class="link-footer" to="">Quem somos</router-link></p>
+        <p><router-link class="link-footer" to="">Trabalhe conosco</router-link></p>
       </div>
-      <div>
-        <RouterLink to="">Produtos</RouterLink>
-        <RouterLink to="">Institucional</RouterLink>
-        <RouterLink to="">Parcerias</RouterLink>
+      <div class="col-sm-4">
+        <p><RouterLink class="link-footer" to="">Produtos</RouterLink></p>
+        <p><RouterLink class="link-footer" to="">Institucional</RouterLink></p>
+        <p><RouterLink class="link-footer" to="">Parcerias</RouterLink></p>
       </div>
-      <div>
+      <div class="col-sm-4">
         <p>Siga-nos:</p>
-        <RouterLink to=""></RouterLink>
-        <RouterLink to=""></RouterLink>
-        <RouterLink to=""></RouterLink>
+        <RouterLink class="fa fa-facebook" to="#"></RouterLink>
+        <RouterLink class="fa fa-twitter" to=""></RouterLink>
+        <RouterLink class="fa fa-linkedin" to=""></RouterLink>
+        <RouterLink class="fa fa-instagram" to=""></RouterLink>
       </div>
     </div>
     <hr>
-    <div>
+    <div class="trade-mark">
       <p>&copy; Quefazer 2025</p>
     </div>
   </footer>

@@ -12,10 +12,10 @@
 Este projeto utiliza o PostgreSQL como seu banco de dados. Para configurar o banco de dados modifique e execute os scripts de banco de dados ou execute os comandos SQL em *sequência*.
 
 ## ...::: REQUISITOS :::... ##
-1. Salve o projeto no diretório quefazer como raiz. ex:
-quefazer/           # Diretório raiz
-    ├──backend      # Diretório backend
-    └──frontend     # Diretório frontend
+1. Salve o projeto no diretório quefazer como raiz. ex:<br>
+quefazer/           # Diretório raiz        <br>
+    ├──backend      # Diretório backend     <br>
+    └──frontend     # Diretório frontend    <br>
     
 ## ...::: COMANDOS BASH :::... ##
 * npm install argon2
