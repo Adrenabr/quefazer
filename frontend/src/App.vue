@@ -34,10 +34,20 @@ import { RouterLink, RouterView } from 'vue-router'
                 </ul>
               </li>
           </ul>
+          <!-- INICIO SEARCHBAR -->
           <form class="d-flex" action="">
               <input class="form-control me-2" type="text" placeholder="O que você procura?">
               <button class="btn btn-primary" type="button">Buscar</button>
           </form>
+          <!-- FIM SEARCHBAR -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link class="nav-link" to="">Cadastro</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="">Entrar</router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -83,5 +93,53 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <style scoped>
-
+.nav-user {
+  float: right;
+}
+.link-footer {
+    color: black;
+    text-decoration: none;
+}
+.row {
+    margin: 0;
+    color: black;
+}
+footer {
+    padding: 1em;
+}
+/*estilo icones redes sociais*/
+.fa {
+    padding: 15px;
+    font-size: 1em; /*sem alterações visiveis*/
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 2px;
+}
+.fa:hover {
+    opacity: 0.7;
+}
+/*especifica a cor para cada uma*/
+.fa-facebook {
+    background-color: #3B5998;
+    color: white;
+}
+.fa-twitter {
+    background-color: #55ACEE;
+    color: white;
+}
+.fa-linkedin {
+    background-color: #007BB5;
+    color: white;
+}
+.fa-instagram {
+    background-color: rgb(168, 0, 184);
+    color: white;
+}
+.trade-mark {
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
 </style>
