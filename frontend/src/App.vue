@@ -18,10 +18,10 @@ import { RouterLink, RouterView } from 'vue-router'
               <router-link class="nav-link" to="/">Inicio</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/">Contato</router-link>
+              <router-link class="nav-link" to="/contato">Contato</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/">Sobre</router-link>
+              <router-link class="nav-link" to="/sobre">Sobre</router-link>
             </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
@@ -42,7 +42,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <!-- FIM SEARCHBAR -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="">Cadastro</router-link>
+              <router-link class="nav-link" to="/cadastro">Cadastro</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="">Entrar</router-link>
