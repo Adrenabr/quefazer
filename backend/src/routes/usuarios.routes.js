@@ -10,8 +10,8 @@ router.get('/', usuariosController.listarUsuarios);
 // GET /api/usuarios/:id - Obter um usuário por ID (pode ser restrito)
 router.get('/:id', usuariosController.obterUsuarioPorId);
 
-// POST /api/usuarios/registrar - Registrar um novo usuário
-router.post('/registrar', usuariosController.registrarUsuario);
+// POST /api/usuarios/cadastro - Cadastrar um novo usuário
+router.post('/cadastro', usuariosController.cadastrarUsuario);
 
 // POST /api/usuarios/login - Fazer login
 router.post('/login', usuariosController.loginUsuario);

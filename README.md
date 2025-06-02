@@ -22,6 +22,7 @@ quefazer/           # Diretório raiz        <br>
 * npm create vue@latest
 * cd frontend
 * npm install bootstrap@5
+* npm install axios
 
 ## Para visualizar a execução do projeto em tempo real abra o terminal de comando:
 1. cd frontend

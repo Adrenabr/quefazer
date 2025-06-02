@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import InicioView from '@/views/InicioView.vue'
 import ContatoView from '@/views/ContatoView.vue'
 import SobreView from '@/views/SobreView.vue'
-import CadastroView from '../views/CadastroView.vue'  // Importa o componente de cadastro.
+import CadastroView from '@/views/CadastroView.vue'  // Importa o componente de cadastro.
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
