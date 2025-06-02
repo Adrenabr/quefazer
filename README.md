@@ -18,11 +18,12 @@ quefazer/           # Diretório raiz        <br>
     └──frontend     # Diretório frontend    <br>
     
 ## ...::: COMANDOS BASH :::... ##
+## BACK-END ##
 * npm install argon2
 * npm create vue@latest
 * npm install express-validator
 
-## FRONT END ##
+## FRONT-END ##
 * cd frontend
 * npm install bootstrap@5
 * npm install axios

@@ -1,4 +1,4 @@
-require('dotenv').config(); // Carrega as variaveis de ambiente
+require('dotenv').config(); // Carrega as variaveis de ambiente do .env
 
 module.exports = {
     db: {
