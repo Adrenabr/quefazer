@@ -7,9 +7,8 @@ const listarUsuariosComFiltros = async (filtros) => {
     return await Usuario.getAllUsuarios(filtros);
 };
 
-const cadastrarUsuarioComValidacao = async (usuarioData, usuario) => {
-    // Lógica de negócios para validar os dados do usuario.
-    
+const cadastrarUsuarioComValidacao = async (usuarioData, email) => {
+    // Lógica de negócios para validar os dados do usuario.    
 };
 
 const atualizarUsuario = async (id, usuarioData) => {
@@ -31,6 +30,26 @@ const atualizarSenhaDoUsuario = async (userId, senhaAtual, novaSenha) => {
     const novaSenhaHash = await argon2.hash(novaSenha);
     const usuarioAtualizado = await Usuario.updateUsuario(userId, { senha_hash: novaSenhaHash });
     return usuarioAtualizado;
+};
+
+exports.cadastrarUsuario = async (usuario, email, senha) => {
+    try {
+        // Verificar se o email já existe usando o model.
+        const emailExistente = await Usuario.getUsuarioByEmail(email);
+        if (emailExistente) {
+            throw new Error('Este email já está cadastrado.');
+        }
+
+        // Criptografar a senha.
+        const senha_hash = await argon2.hash(senha);
+
+        // Criar um novo usuário usando o model.
+        const novoUsuario = await Usuario.createUsuario({ usuario, email, senha: senha_hash});
+        return novoUsuario;
+    } catch (error) {
+        console.error('Erro no serviço de cadastro:', error);
+        throw error;    // Envia o erro para o controller lidar com a resposta.
+    }
 };
 
 // Outras funções de serviço para lógica de negócios mais complexa

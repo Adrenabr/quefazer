@@ -20,10 +20,13 @@ quefazer/           # Diretório raiz        <br>
 ## ...::: COMANDOS BASH :::... ##
 * npm install argon2
 * npm create vue@latest
+* npm install express-validator
+
+## FRONT END ##
 * cd frontend
 * npm install bootstrap@5
 * npm install axios
-* npm ionstall express-validator
+
 
 ## Para visualizar a execução do projeto em tempo real abra o terminal de comando:
 1. cd frontend

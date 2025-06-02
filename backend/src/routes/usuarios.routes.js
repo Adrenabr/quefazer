@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-// const { pool } = require('../database/db'); // Importa a conexão com o PostgreSQL
 const usuariosController = require('../controllers/usuariosController');
 const { body, validationResult } = require('express-validator');
+
 
 // Rotas para a entidade "usuarios"
 
@@ -13,12 +13,12 @@ router.get('/', usuariosController.listarUsuarios);
 router.get('/:id', usuariosController.obterUsuarioPorId);
 
 // POST /api/usuarios/cadastro - Cadastrar um novo usuário
-router.post('/cadastro',
+router.post('/cadastro', [
     // Validação dos campos usando express-validator
     body('usuario').notEmpty().withMessage('O campo usuário é obrigatório.'),
     body('email').isEmail().withMessage('Insira um email válido.'),
-    body('senha').isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.'),
-    usuariosController.cadastrarUsuario);
+    body('senha').isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.')
+    ], usuariosController.cadastrarUsuario);    // A função será executada quando esta rota for acessada.
 
 // POST /api/usuarios/login - Fazer login
 router.post('/login', usuariosController.loginUsuario);

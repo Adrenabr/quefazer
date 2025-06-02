@@ -1,6 +1,35 @@
-const pool = require('../database/db'); //Esta linha importa a instância do Pool de conexão com o banco de dados
+//const pool = require('../database/db');
+const { pool } = require('../database/db'); // Importa a conexão com o PostgreSQL.
 const argon2 = require('argon2');   // Importa biblioteca argon2.
 // Ao tratar do banco de dados utilizar termos iniciais em ingles*
+
+// Teste usando classe.
+class Usuario {
+    static async getUsuarioByEmail(email) {
+        try {
+            const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
+            return result.rows[0];
+        } catch (error) {
+            console.error('Erro ao buscar usuário por email:', error);
+            throw error;
+        }
+    }
+
+    static async createUsuario(usuarioData) {
+        const { usuario, email, senha } = usuarioData;
+        try {
+            const result = await pool.query(
+                'INSERT INTO usuarios (nome_usuario, email_usuario, senha_hash) VALUES ($1, $2, $3) RETURNING usuario_id, nome_usuario, email_usuario',
+                [usuario, email, senha]
+            );
+            return result.rows[0];
+        } catch (error) {
+            console.error('Erro ao cadastrar usuário.', error);
+            throw error;
+        }
+    }
+    // Outras funções abaixo.
+}
 
 // Busca por todos os usuários no banco de dados
 const getAllUsuarios = async () => {
@@ -20,6 +49,16 @@ const getUsuarioById = async (id) => {
         return result.rows[0];
     } catch (error) {
         console.error(`Erro ao buscar usuário com ID ${id}:`, error);
+        throw error;
+    }
+};
+// Busca um usuário pelo Email
+const getUsuarioByEmail = async (email) => {
+    try {
+        const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
+        return result.rows[0];
+    } catch (error) {
+        console.error(`Erro ao buscar usuário pelo Email ${email}`);
         throw error;
     }
 };
@@ -75,10 +114,11 @@ const updateUsuario = async (id, usuarioData) => {
 };
 
 // Funções para atualizar e deletar clientes seguiriam um padrão similar
-
+module.exports = Usuario;
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
+    getUsuarioByEmail,
     createUsuario,
     updateUsuario
     // ... outras funções

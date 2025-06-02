@@ -1,6 +1,8 @@
 const Usuario = require('../models/usuario');    // Importa o model.
 const argon2 = require('argon2');   // Importa biblioteca argon2.
 const usuariosService = require('../services/usuariosService'); // Importa o service.
+const { validationResult } = require('express-validator');
+//const { body, validationResult } = require('express-validator');
 
 // Controlador para listar usuários com suporte a filtros.
 const listarUsuarios = async (req, res) => {
@@ -32,6 +34,7 @@ const obterUsuarioPorId = async (req, res) => {
 
 // Controlador para cadastrar um usuario.
 const cadastrarUsuario = async (req, res) => {
+
     const usuarioData = req.body;   // Obtém os dados do novo usuario do corpo da requisição (geralmente em formato JSON).
     const usuarioLogado = req.usuario; // Tendo um middleware de autenticação que adiciona informações do usuário logado na requisição, importante que nenhum usuario logado possa registrar um novo usuario.
     try {
@@ -58,6 +61,27 @@ const loginUsuario = async () => {};
 
 // Controlador para excluir um usuário, não sei se será utilizado.*
 const excluirUsuario = async (req, res) => {  };
+
+// Controlador para cadastrar um usuário.
+exports.cadastrarUsuario = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array( )});
+    }
+
+    const { usuario, email, senha } = req.body; // Extrai os dados do corpo de requisição.
+
+    try {
+        const novoUsuario = await usuariosService.cadastrarUsuario(usuario, email, senha);
+        res.status(201).json({ message: 'Usuário cadastrado com sucesso!', usuario: novoUsuario});
+    } catch (error) {
+        console.error('Erro ao cadastrar usuário: ', error);
+        if (error.message === 'Este email já está cadastrado.') {
+            return res.status(409).json({ message: error.message });
+        }
+        res.status(500).json({ message: 'Erro interno no servidor.' });
+    }
+};
 
 module.exports = {
     listarUsuarios,
