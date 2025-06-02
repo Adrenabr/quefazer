@@ -23,6 +23,7 @@ quefazer/           # Diretório raiz        <br>
 * cd frontend
 * npm install bootstrap@5
 * npm install axios
+* npm ionstall express-validator
 
 ## Para visualizar a execução do projeto em tempo real abra o terminal de comando:
 1. cd frontend
