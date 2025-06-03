@@ -1,9 +1,7 @@
 const express = require('express');
-const config = require('./config/config'); // Importa o arquivo de configuração
-const port = config.port;   // Obtém a porta do arquivo de configuração
-// const morgan = require('morgan'); // Para logging de requisições
-// const helmet = require('helmet'); // Para segurança
-const cors = require('cors');   // Para habilitar CORS
+const config = require('./config/config');  // Importa o arquivo de configuração
+const port = config.port;                   // Obtém a porta do arquivo de configuração
+const cors = require('cors');               // Para habilitar CORS
 
 const app = express();
 
