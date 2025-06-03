@@ -1,6 +1,6 @@
 const Usuario = require('../models/usuario');
 const argon2 = require('argon2');
-
+/*
 const listarUsuariosComFiltros = async (filtros) => {
     // Lógica de negócios para aplicar filtros.
     // Pode envolver múltiplas chamadas ao model ou lógica adicional.
@@ -31,11 +31,11 @@ const atualizarSenhaDoUsuario = async (userId, senhaAtual, novaSenha) => {
     const usuarioAtualizado = await Usuario.updateUsuario(userId, { senha_hash: novaSenhaHash });
     return usuarioAtualizado;
 };
-
-exports.cadastrarUsuario = async (usuario, email, senha) => {
+*/
+exports.cadastrarUsuario = async (nome, email, senha) => {
     try {
         // Verificar se o email já existe usando o model.
-        const emailExistente = await Usuario.getUsuarioByEmail(email);
+        const emailExistente = await Usuario.getUserByEmail(email);
         if (emailExistente) {
             throw new Error('Este email já está cadastrado.');
         }
@@ -44,7 +44,7 @@ exports.cadastrarUsuario = async (usuario, email, senha) => {
         const senha_hash = await argon2.hash(senha);
 
         // Criar um novo usuário usando o model.
-        const novoUsuario = await Usuario.createUsuario({ usuario, email, senha: senha_hash});
+        const novoUsuario = await Usuario.createUser({ nome, email, senha: senha_hash});
         return novoUsuario;
     } catch (error) {
         console.error('Erro no serviço de cadastro:', error);
@@ -54,10 +54,11 @@ exports.cadastrarUsuario = async (usuario, email, senha) => {
 
 // Outras funções de serviço para lógica de negócios mais complexa
 // ... outras funções para criar, atualizar, deletar
+/*
 module.exports = {
     listarUsuariosComFiltros,
     cadastrarUsuarioComValidacao,
     atualizarUsuario,
     atualizarSenhaDoUsuario
     // ... outras funções de serviço
-};
+};*/

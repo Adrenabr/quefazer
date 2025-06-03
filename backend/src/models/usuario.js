@@ -1,11 +1,9 @@
-//const pool = require('../database/db');
 const { pool } = require('../database/db'); // Importa a conexão com o PostgreSQL.
 const argon2 = require('argon2');   // Importa biblioteca argon2.
-// Ao tratar do banco de dados utilizar termos iniciais em ingles*
+// Ao tratar do banco de dados utilizar termos em ingles*
 
-// Teste usando classe.
 class Usuario {
-    static async getUsuarioByEmail(email) {
+    static async getUserByEmail(email) {
         try {
             const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
             return result.rows[0];
@@ -15,12 +13,12 @@ class Usuario {
         }
     }
 
-    static async createUsuario(usuarioData) {
-        const { usuario, email, senha } = usuarioData;
+    static async createUser(usuarioData) {
+        const { nome, email, senha } = usuarioData;
         try {
             const result = await pool.query(
                 'INSERT INTO usuarios (nome_usuario, email_usuario, senha_hash) VALUES ($1, $2, $3) RETURNING usuario_id, nome_usuario, email_usuario',
-                [usuario, email, senha]
+                [nome, email, senha]
             );
             return result.rows[0];
         } catch (error) {
@@ -30,7 +28,7 @@ class Usuario {
     }
     // Outras funções abaixo.
 }
-
+/*
 // Busca por todos os usuários no banco de dados
 const getAllUsuarios = async () => {
     try {
@@ -53,7 +51,7 @@ const getUsuarioById = async (id) => {
     }
 };
 // Busca um usuário pelo Email
-/*
+
 const getUsuarioByEmail = async (email) => {
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
@@ -63,7 +61,7 @@ const getUsuarioByEmail = async (email) => {
         throw error;
     }
 };
-*/
+
 // Cria um usuário, falta verificar a questao do hash da senha***
 const createUsuario = async (usuarioData) => {
     const { nome_usuario, senha, email_usuario } = usuarioData; // Senha vem do cliente
@@ -113,14 +111,15 @@ const updateUsuario = async (id, usuarioData) => {
         throw error;
     }
 };
-
+*/
 // Funções para atualizar e deletar clientes seguiriam um padrão similar
 module.exports = Usuario;
+/*
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
-    getUsuarioByEmail,
+    //getUsuarioByEmail,
     createUsuario,
     updateUsuario
     // ... outras funções
-};
+};*/

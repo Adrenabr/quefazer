@@ -8,7 +8,7 @@
 
             <div>
                 <label for="usuario">Usuário:*</label>
-                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.usuario" required>
+                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.nome" required>
             </div>
             <div>
                 <label for="primeiro-nome">Primeiro nome:</label>
@@ -50,7 +50,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const formData = ref({
-    usuario: '',
+    nome: '',
     primeiroNome: '',
     ultimoNome: '',
     email: '',
@@ -67,7 +67,7 @@ const cadastrarUsuario = async () => {
     mensagem.value = response.data.message || 'Cadastro realizado com sucesso!';
     sucesso.value = true;
     // Limpar o formulário após o sucesso (opcional)
-    formData.value = { usuario: '', primeiroNome: '', ultimoNome: '', email: '', senha: '', confirmarSenha: '' };
+    formData.value = { nome: '', primeiroNome: '', ultimoNome: '', email: '', senha: '', confirmarSenha: '' };
   } catch (error: any) {
     mensagem.value = error.response?.data?.message || 'Erro ao cadastrar usuário.';
     sucesso.value = false;

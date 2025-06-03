@@ -1,7 +1,7 @@
 // arquivo para iniciar o servidor, no caso esta importando e executando o app.js
 const app = require('./app');
 const config = require('./config/config');  // Importa o arquivo de configuração
-const pool = require('./database/db');      // Importa a instância do Pool
+const { pool } = require('./database/db');      // Importa a instância do Pool
 
 const port = config.port;
 

@@ -3,7 +3,7 @@ const argon2 = require('argon2');   // Importa biblioteca argon2.
 const usuariosService = require('../services/usuariosService'); // Importa o service.
 const { validationResult } = require('express-validator');
 //const { body, validationResult } = require('express-validator');
-
+/*
 // Controlador para listar usuários com suporte a filtros.
 const listarUsuarios = async (req, res) => {
     try {
@@ -31,7 +31,7 @@ const obterUsuarioPorId = async (req, res) => {
         res.status(500).json({ error: error.message || 'Erro ao buscar usuário.' });  // Responde com status 500 e uma mensagem de erro genérica.
     }
 };
-/*
+
 // Controlador para cadastrar um usuario.
 const cadastrarUsuario = async (req, res) => {
 
@@ -45,7 +45,7 @@ const cadastrarUsuario = async (req, res) => {
         res.status(400).json({ error: error.message }); // Responde com status 400 (Bad Request) e a mensagem de erro, geralmente indicando um problema com os dados da requisição (validação falhou).
     }
 };
-*/
+
 // Controlador para verificar senha de usuario.
 const verificarSenha = async (senha, senha_hash) => {
     try {
@@ -61,33 +61,39 @@ const loginUsuario = async () => {};
 
 // Controlador para excluir um usuário, não sei se será utilizado.*
 const excluirUsuario = async (req, res) => {  };
-
+*/
 // Controlador para cadastrar um usuário.
 exports.cadastrarUsuario = async (req, res) => {
-    const errors = validationResult(req);
+    
+    const errors = validationResult(req); // Esta linha aqui é importante para capturar os erros de validação da rota
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { usuario, email, senha } = req.body; // Extrai os dados do corpo de requisição.
+    const { nome, email, senha } = req.body; // Extrai os dados do corpo de requisição.
 
     try {
-        const novoUsuario = await usuariosService.cadastrarUsuario(usuario, email, senha);
+        const novoUsuario = await usuariosService.cadastrarUsuario(nome, email, senha);
         res.status(201).json({ message: 'Usuário cadastrado com sucesso!', usuario: novoUsuario});
     } catch (error) {
-        console.error('Erro ao cadastrar usuário: ', error);
+        console.error('Erro ao cadastrar usuário no controller: ', error);
+        // O erro 'Este email já está cadastrado.' vem do service, então tratamos aqui
         if (error.message === 'Este email já está cadastrado.') {
             return res.status(409).json({ message: error.message });
         }
         res.status(500).json({ message: 'Erro interno no servidor.' });
     }
 };
-
+/*
 module.exports = {
     listarUsuarios,
     obterUsuarioPorId,
-    
     verificarSenha,
     loginUsuario,
     excluirUsuario,
-};
+};*/
+// exports.listarUsuarios = async (req, res) => { /* ... */ };
+// exports.obterUsuarioPorId = async (req, res) => { /* ... */ };
+// exports.verificarSenha = async (req, res) => { /* ... */ };
+// exports.loginUsuario = async (req, res) => { /* ... */ };
+// exports.excluirUsuario = async (req, res) => { /* ... */ };
