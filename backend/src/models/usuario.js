@@ -53,6 +53,7 @@ const getUsuarioById = async (id) => {
     }
 };
 // Busca um usuário pelo Email
+/*
 const getUsuarioByEmail = async (email) => {
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
@@ -62,7 +63,7 @@ const getUsuarioByEmail = async (email) => {
         throw error;
     }
 };
-
+*/
 // Cria um usuário, falta verificar a questao do hash da senha***
 const createUsuario = async (usuarioData) => {
     const { nome_usuario, senha, email_usuario } = usuarioData; // Senha vem do cliente

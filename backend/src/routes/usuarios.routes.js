@@ -17,14 +17,14 @@ router.post('/cadastro', [
     // Validação dos campos usando express-validator
     body('usuario').notEmpty().withMessage('O campo usuário é obrigatório.'),
     body('email').isEmail().withMessage('Insira um email válido.'),
-    body('senha').isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.')
+    body('senha').isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.'),
     ], usuariosController.cadastrarUsuario);    // A função será executada quando esta rota for acessada.
 
 // POST /api/usuarios/login - Fazer login
 router.post('/login', usuariosController.loginUsuario);
 
 // PUT /api/usuarios/:id - Atualizar um usuário (pode ser restrito ao próprio usuário ou admin)
-router.put('/:id', usuariosController.atualizarUsuario);
+//router.put('/:id', usuariosController.atualizarUsuario);
 
 // DELETE /api/usuarios/:id - Excluir um usuário (geralmente restrito a admin)
 router.delete('/:id', usuariosController.excluirUsuario);

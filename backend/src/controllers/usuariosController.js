@@ -31,7 +31,7 @@ const obterUsuarioPorId = async (req, res) => {
         res.status(500).json({ error: error.message || 'Erro ao buscar usuário.' });  // Responde com status 500 e uma mensagem de erro genérica.
     }
 };
-
+/*
 // Controlador para cadastrar um usuario.
 const cadastrarUsuario = async (req, res) => {
 
@@ -45,7 +45,7 @@ const cadastrarUsuario = async (req, res) => {
         res.status(400).json({ error: error.message }); // Responde com status 400 (Bad Request) e a mensagem de erro, geralmente indicando um problema com os dados da requisição (validação falhou).
     }
 };
-
+*/
 // Controlador para verificar senha de usuario.
 const verificarSenha = async (senha, senha_hash) => {
     try {
@@ -66,7 +66,7 @@ const excluirUsuario = async (req, res) => {  };
 exports.cadastrarUsuario = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array( )});
+        return res.status(400).json({ errors: errors.array() });
     }
 
     const { usuario, email, senha } = req.body; // Extrai os dados do corpo de requisição.
@@ -86,7 +86,7 @@ exports.cadastrarUsuario = async (req, res) => {
 module.exports = {
     listarUsuarios,
     obterUsuarioPorId,
-    cadastrarUsuario,
+    
     verificarSenha,
     loginUsuario,
     excluirUsuario,

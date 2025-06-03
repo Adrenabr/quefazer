@@ -11,7 +11,7 @@ router.get('/', anunciosController.listarAnuncios);
 router.get('/:id', anunciosController.obterAnuncioPorId);
 
 // POST /api/anuncios - Criar um novo anúncio
-router.post('/', anunciosController.criarAnuncio);
+//router.post('/', anunciosController.criarAnuncio);
 
 // PUT /api/anuncios/:id - Atualizar um anúncio existente
 router.put('/:id', anunciosController.atualizarAnuncio);

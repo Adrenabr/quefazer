@@ -1,10 +1,11 @@
 const express = require('express');
-const app = express();
 const config = require('./config/config'); // Importa o arquivo de configuração
 const port = config.port;   // Obtém a porta do arquivo de configuração
-const morgan = require('morgan'); // Para logging de requisições
-const helmet = require('helmet'); // Para segurança
-const cors = require('cors');   // Para habilitar CORS (se necessário)
+// const morgan = require('morgan'); // Para logging de requisições
+// const helmet = require('helmet'); // Para segurança
+const cors = require('cors');   // Para habilitar CORS
+
+const app = express();
 
 // const authMiddleware = require('./middlewares/auth');
 // const errorHandler = require('./middlewares/error');
@@ -16,10 +17,10 @@ const usuariosRoutes = require('./routes/usuarios.routes');
 const clientesRoutes = require('./routes/clientes.routes');
 
 // Middleware de logging
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 // Middleware para segurança (configure conforme necessário)
-app.use(helmet());
+//app.use(helmet());
 
 // Middleware para habilitar CORS (configure conforme necessário)
 app.use(cors());
