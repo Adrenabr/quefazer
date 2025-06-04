@@ -70,10 +70,10 @@ exports.cadastrarUsuario = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { cadastroUsuario, email, senha } = req.body; // Extrai os dados do corpo de requisição.
+    const { cadastroUsuario, cadastroEmail, cadastroSenha, primeiroNome, ultimoNome } = req.body; // Extrai os dados do corpo de requisição.
 
     try {
-        const novoUsuario = await usuariosService.cadastrarUsuario(cadastroUsuario, email, senha);
+        const novoUsuario = await usuariosService.cadastrarUsuario(cadastroUsuario, cadastroEmail, cadastroSenha, primeiroNome, ultimoNome);
         res.status(201).json({ message: 'Usuário cadastrado com sucesso!', usuario: novoUsuario});
     } catch (error) {
         console.error('Erro ao cadastrar usuário no controller: ', error);

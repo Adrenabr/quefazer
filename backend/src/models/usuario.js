@@ -14,11 +14,11 @@ class Usuario {
     }
 
     static async createUser(usuarioData) {
-        const { cadastroUsuario, email, senha } = usuarioData;
+        const { cadastroUsuario, cadastroEmail, cadastroSenha, primeiroNome, ultimoNome } = usuarioData;
         try {
             const result = await pool.query(
-                'INSERT INTO usuarios (nome_usuario, email_usuario, senha_hash) VALUES ($1, $2, $3) RETURNING usuario_id, nome_usuario, email_usuario',
-                [cadastroUsuario, email, senha]
+                'INSERT INTO usuarios (nome_usuario, email_usuario, senha_hash, primeiro_nome, ultimo_nome) VALUES ($1, $2, $3, $4, $5) RETURNING usuario_id, nome_usuario, email_usuario, primeiro_nome, ultimo_nome',
+                [cadastroUsuario, cadastroEmail, cadastroSenha, primeiroNome, ultimoNome]
             );
             return result.rows[0];
         } catch (error) {
