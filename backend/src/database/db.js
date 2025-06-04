@@ -1,4 +1,4 @@
-const { Pool } = require('pg'); // Importa a classe Pool do 'pg'.
+const { Pool } = require('pg');     // Importa a classe Pool do 'pg'.
 const config = require('../config/config'); // Configurações de DB estão em config.js.
 
 const pool = new Pool({
@@ -12,7 +12,7 @@ const pool = new Pool({
 // Teste de conexão.
 pool.on('error', (err) => {
     console.error('Erro inesperado no pool do banco de dados:', err);
-    process.exit(-1);   // Encerrar o processo se houver um erro grave de conexão.
+    process.exit(-1);               // Encerrar o processo se houver um erro grave de conexão.
 });
 
 module.exports = { pool };

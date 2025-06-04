@@ -8,7 +8,7 @@
 
             <div>
                 <label for="usuario">Usuário:*</label>
-                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.nome" required>
+                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.cadastroUsuario" required>
             </div>
             <div>
                 <label for="primeiro-nome">Primeiro nome:</label>
@@ -50,7 +50,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const formData = ref({
-    nome: '',
+    cadastroUsuario: '',
     primeiroNome: '',
     ultimoNome: '',
     email: '',
@@ -67,7 +67,7 @@ const cadastrarUsuario = async () => {
     mensagem.value = response.data.message || 'Cadastro realizado com sucesso!';
     sucesso.value = true;
     // Limpar o formulário após o sucesso (opcional)
-    formData.value = { nome: '', primeiroNome: '', ultimoNome: '', email: '', senha: '', confirmarSenha: '' };
+    formData.value = { cadastroUsuario: '', primeiroNome: '', ultimoNome: '', email: '', senha: '', confirmarSenha: '' };
   } catch (error: any) {
     mensagem.value = error.response?.data?.message || 'Erro ao cadastrar usuário.';
     sucesso.value = false;
@@ -84,7 +84,7 @@ const cadastrarUsuario = async () => {
     padding: 16px;
 }
 /* Campos de texto */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -92,7 +92,7 @@ input[type=text], input[type=password] {
     border: none;
     background: #f1f1f1;
 }
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     background-color: #ddd;
     outline: none;
 }

@@ -32,7 +32,7 @@ const atualizarSenhaDoUsuario = async (userId, senhaAtual, novaSenha) => {
     return usuarioAtualizado;
 };
 */
-exports.cadastrarUsuario = async (nome, email, senha) => {
+exports.cadastrarUsuario = async (cadastroUsuario, email, senha) => {
     try {
         // Verificar se o email já existe usando o model.
         const emailExistente = await Usuario.getUserByEmail(email);
@@ -44,7 +44,7 @@ exports.cadastrarUsuario = async (nome, email, senha) => {
         const senha_hash = await argon2.hash(senha);
 
         // Criar um novo usuário usando o model.
-        const novoUsuario = await Usuario.createUser({ nome, email, senha: senha_hash});
+        const novoUsuario = await Usuario.createUser({ cadastroUsuario, email, senha: senha_hash});
         return novoUsuario;
     } catch (error) {
         console.error('Erro no serviço de cadastro:', error);

@@ -15,7 +15,7 @@ router.get('/:id', usuariosController.obterUsuarioPorId);
 // POST /api/usuarios/cadastro - Cadastrar um novo usuário
 router.post('/cadastro', [
     // Validação dos campos usando express-validator
-    body('nome').notEmpty().withMessage('O campo usuário é obrigatório.'),
+    body('cadastroUsuario').notEmpty().withMessage('O campo usuário é obrigatório.'),
     body('email').isEmail().withMessage('Insira um email válido.'),
     body('senha').isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.')
     ], usuariosController.cadastrarUsuario);    // A função será executada quando esta rota for acessada.
