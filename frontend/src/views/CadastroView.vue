@@ -64,7 +64,7 @@ const formData = ref({
 
 const mensagem = ref('');
 const sucesso = ref(false);
-// Novo objeto reativo para armazenar erros específicos por campo
+// Objeto reativo para armazenar erros específicos por campo
 const errors = ref({ 
     cadastroUsuario: '',
     cadastroEmail: '',

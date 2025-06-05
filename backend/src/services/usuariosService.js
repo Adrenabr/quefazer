@@ -34,7 +34,12 @@ const atualizarSenhaDoUsuario = async (userId, senhaAtual, novaSenha) => {
 */
 exports.cadastrarUsuario = async (cadastroUsuario, cadastroEmail, cadastroSenha, primeiroNome, ultimoNome) => {
     try {
-        // Verificar se o email já existe usando o model.
+        // Verificar se o nome de usuário já existe.
+        const nomeUsuarioExistente = await Usuario.getUserByUsername(cadastroUsuario);
+        if (nomeUsuarioExistente) {
+            throw new Error('Este nome de usuário já está em uso.');
+        }
+        // Verificar se o email já existe.
         const emailExistente = await Usuario.getUserByEmail(cadastroEmail);
         if (emailExistente) {
             throw new Error('Este email já está cadastrado.');

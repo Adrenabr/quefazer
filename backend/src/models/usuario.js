@@ -3,12 +3,22 @@ const argon2 = require('argon2');   // Importa biblioteca argon2.
 // Ao tratar do banco de dados utilizar termos em ingles*
 
 class Usuario {
+    static async getUserByUsername(username) {
+        try {
+            const result = await pool.query('SELECT * FROM usuarios WHERE nome_usuario = $1', [username]);
+            return result.rows[0];
+        } catch (error) {
+            console.error('Erro ao buscar usuário pelo username(model):', error);
+            throw error;
+        }
+    }
+
     static async getUserByEmail(email) {
         try {
             const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
             return result.rows[0];
         } catch (error) {
-            console.error('Erro ao buscar usuário por email:', error);
+            console.error('Erro ao buscar usuário por email(model):', error);
             throw error;
         }
     }
@@ -51,7 +61,6 @@ const getUsuarioById = async (id) => {
     }
 };
 // Busca um usuário pelo Email
-
 const getUsuarioByEmail = async (email) => {
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email_usuario = $1', [email]);
@@ -61,26 +70,6 @@ const getUsuarioByEmail = async (email) => {
         throw error;
     }
 };
-
-// Cria um usuário, falta verificar a questao do hash da senha***
-const createUsuario = async (usuarioData) => {
-    const { nome_usuario, senha, email_usuario } = usuarioData; // Senha vem do cliente
-    try {
-        const senha_hash = await argon2.hash(senha);    // Gera o hash usando argon2 (com configurações padrão).
-        const query = `
-        INSERT INTO usuarios (nome_usuario, senha_hash, email_usuario)
-        VALUES ($1, $2, $3)
-        RETURNING *;
-        `;
-        const values = [nome_usuario, senha_hash, email_usuario];
-        const result = await pool.query(query, values);
-        return result.rows[0];
-    } catch (error) {
-        console.error('Erro ao criar usuário:', error);
-        throw error;
-    }
-};
-
 // Atualiza os dados de um usuário existente.
 const updateUsuario = async (id, usuarioData) => {
     const { nome_usuario, senha, email_usuario } = usuarioData;
