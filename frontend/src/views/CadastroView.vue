@@ -35,7 +35,7 @@
                 <div v-if="errors.confirmarSenha" class="text-danger">{{ errors.confirmarSenha }}</div>
             </div>
             <p>Ao clicar em cadastrar-se você estará concordando com nossos <RouterLink to="">Termos de uso</RouterLink>.</p>
-            <button type="submit" class="registerbtn">Cadastrar-se</button>
+            <button type="submit" class="registerbtn" :disabled="passwordMismatchError || !isValidForm">Cadastrar-se</button>
             <div v-if="mensagem" class="mt-3 alert" :class="{'alert-success': sucesso, 'alert-danger': !sucesso}">
                 {{ mensagem }}
             </div>
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 
 const formData = ref({
@@ -64,6 +64,7 @@ const formData = ref({
 
 const mensagem = ref('');
 const sucesso = ref(false);
+const passwordMismatchError = ref(false);
 // Objeto reativo para armazenar erros específicos por campo
 const errors = ref({ 
     cadastroUsuario: '',
@@ -71,6 +72,7 @@ const errors = ref({
     cadastroSenha: '',
     confirmarSenha: '',
  });
+
 // Função para validar nome de usuário no frontend.
 const validarUsuario = () => {
     if (formData.value.cadastroUsuario.includes(' ')) {
@@ -81,6 +83,39 @@ const validarUsuario = () => {
     return true;
 };
 
+// Computed property para verificar se as senhas coincidem.
+const passwordMatch = computed(() => {
+    // Só verifica se ambas as senhas foram preenchidas para evitar erro desnecessário no início.
+    return formData.value.cadastroSenha === formData.value.confirmarSenha && 
+           formData.value.cadastroSenha !== '' && formData.value.confirmarSenha !== '';
+});
+
+// Watcher para monitorar as senhas e atualizar o erro de não correspondência.
+watch([() => formData.value.cadastroSenha, () => formData.value.confirmarSenha], ([newPassword, newConfirmPassword]) => {
+    // Só compara se ambos não estiverem vazios.
+    if (newPassword !== '' && newConfirmPassword !== '') {
+        passwordMismatchError.value = newPassword !== newConfirmPassword;
+        if (passwordMismatchError.value) {
+            errors.value.confirmarSenha = 'As senhas não coincidem.';
+        } else {
+            errors.value.confirmarSenha = '';   // Limpa o erro se as senhas coincidirem.
+        }
+    } else {
+        passwordMismatchError.value = false;    // Não mostra erro se um ou ambos os campos estiverem vazios.
+        errors.value.confirmarSenha = '';       // Limpa o erro.
+    }
+}, { immediate: true });    // Executa a validação uma vez ao carregar o componente.
+
+// Computed property para desabilitar o botão de submit caso as senhas não coincidirem.
+const isValidForm = computed(() => {
+    // Verifica se não há erros em nenhum dos campos e se as senhas coincidem.
+    const noFieldErrors = !Object.values(errors.value).some(error => error !== '');
+    const isPasswordValid = !passwordMismatchError.value && formData.value.cadastroSenha !== '' && formData.value.confirmarSenha !== '';
+    const isRequiredFieldsFilled = formData.value.cadastroUsuario !== '' && formData.value.cadastroEmail !== '';
+
+    return noFieldErrors && isPasswordValid && isRequiredFieldsFilled;
+});
+
 const cadastrarUsuario = async () => {
     mensagem.value = '';    // Limpa mensagens anteriores.
     sucesso.value = false;
@@ -90,7 +125,14 @@ const cadastrarUsuario = async () => {
         // Se a validação do nome de usuário falhar no frontend, não envia a requisição
         return;
     }
-    
+
+    // Verifica se as senhas não coincidem antes de enviar
+    if (passwordMismatchError.value) {
+        mensagem.value = 'As senhas digitadas não coincidem.';
+        sucesso.value = false;
+        return;
+    }
+
     try {
         const response = await axios.post('http://localhost:3000/api/usuarios/cadastro', formData.value);
         mensagem.value = response.data.message || 'Cadastro realizado com sucesso!';

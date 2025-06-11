@@ -26,6 +26,13 @@ router.post('/cadastro', [
         .isEmail().withMessage('Insira um email válido.'),
     body('cadastroSenha')
         .isLength({ min: 8 }).withMessage('A senha deve ter no mínimo 8 caracteres.'),
+    body('confirmarSenha')
+        .custom((value, { req } ) => {
+            if (value !== req.body.cadastroSenha) {
+                throw new Error('As senhas não coincidem.');
+            }
+            return true;
+        }),
     ], usuariosController.cadastrarUsuario);    // A função será executada quando esta rota for acessada.
 /*
 // POST /api/usuarios/login - Fazer login
