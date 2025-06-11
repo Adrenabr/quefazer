@@ -8,7 +8,7 @@
 
             <div>
                 <label for="usuario">Usuário:*</label>
-                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.cadastroUsuario" required>
+                <input type="text" id="usuario" placeholder="Digite seu nome de usuário." v-model="formData.cadastroUsuario" required @blur="validarUsuario">
                 <div v-if="errors.cadastroUsuario" class="text-danger">{{ errors.cadastroUsuario }}</div>
             </div>
             <div>
@@ -71,11 +71,26 @@ const errors = ref({
     cadastroSenha: '',
     confirmarSenha: '',
  });
+// Função para validar nome de usuário no frontend.
+const validarUsuario = () => {
+    if (formData.value.cadastroUsuario.includes(' ')) {
+        errors.value.cadastroUsuario = "O nome de usuário não pode conter espaços em branco.";
+        return false;
+    }
+    errors.value.cadastroUsuario = '';  // Limpa o erro se for válido.
+    return true;
+};
 
 const cadastrarUsuario = async () => {
     mensagem.value = '';    // Limpa mensagens anteriores.
     sucesso.value = false;
     errors.value = { cadastroUsuario: '', cadastroEmail: '', cadastroSenha: '', confirmarSenha: '' }; // Limpa erros anteriores.
+    // Chama a validação do nome de usuário no frontend antes do envio.
+    if (!validarUsuario()) {
+        // Se a validação do nome de usuário falhar no frontend, não envia a requisição
+        return;
+    }
+    
     try {
         const response = await axios.post('http://localhost:3000/api/usuarios/cadastro', formData.value);
         mensagem.value = response.data.message || 'Cadastro realizado com sucesso!';

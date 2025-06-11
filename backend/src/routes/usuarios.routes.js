@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
 const { body, validationResult } = require('express-validator');
-console.log('usuariosController:', usuariosController); // Adicione esta linha
+
 /*
 // Rotas para a entidade "usuarios"
 
@@ -17,7 +17,9 @@ router.post('/cadastro', [
     // Validação dos campos usando express-validator
     body('cadastroUsuario')
         .notEmpty().withMessage('O campo usuário é obrigatório.')
-        .isLength({ min: 6 }).withMessage('O nome de usuário deve ter no mínimo 6 caracteres.')
+        .matches(/^\S*$/).withMessage('O nome de usuário não pode conter espaços em branco.')   // Regex que verifica se não há espaços em branco
+        .isLength({ min: 6, max: 20 }).withMessage('O nome de usuário deve ter entre 6 e 20 caracteres.')
+        .isAlphanumeric().withMessage('O nome de usuário deve conter apenas letras e números.')
         .trim()     // Remove espaços em branco do início/fim
         .escape(),  // Escapa caracteres HTML no nome de usuário para segurança
     body('cadastroEmail')
