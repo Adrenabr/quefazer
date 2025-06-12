@@ -22,6 +22,7 @@ quefazer/           # Diretório raiz        <br>
 * npm install argon2
 * npm create vue@latest
 * npm install express-validator
+* npm install jsonwebtoken
 
 ## FRONT-END ##
 * cd frontend

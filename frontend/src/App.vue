@@ -45,7 +45,7 @@ import { RouterLink, RouterView } from 'vue-router'
               <router-link class="nav-link" to="/cadastro">Cadastro</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="">Entrar</router-link>
+              <router-link class="nav-link" to="/login">Entrar</router-link>
             </li>
           </ul>
         </div>

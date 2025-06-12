@@ -13,6 +13,7 @@ const app = express();
 const anunciosRoutes = require('./routes/anuncios.routes');
 const usuariosRoutes = require('./routes/usuarios.routes');
 const clientesRoutes = require('./routes/clientes.routes');
+const authRoutes = require('./routes/auth.routes');
 
 // Middleware de logging
 //app.use(morgan('dev'));
@@ -20,10 +21,8 @@ const clientesRoutes = require('./routes/clientes.routes');
 // Middleware para segurança (configure conforme necessário)
 //app.use(helmet());
 
-// Middleware para habilitar CORS (configure conforme necessário)
+// Middlewares
 app.use(cors());
-
-// Middleware para analisar o corpo das requisições (JSON e urlencoded)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/anuncios', anunciosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/clientes', clientesRoutes);
+app.use('/api/auth', authRoutes);
 
 // Middleware para tratamento de erros (deve ser definido APÓS as rotas)
 app.use((err, req, res, next) => {
