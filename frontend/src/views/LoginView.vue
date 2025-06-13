@@ -20,32 +20,24 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import axios from 'axios'; // Biblioteca para requisições HTTP.
+import { useAuthStore } from '@/stores/authStore';  // Importa a função login do store.
 
 const loginEmail = ref('');
 const loginSenha = ref('');
 const errorMessage = ref('');
-const router = useRouter();
+
+const { login } = useAuthStore();   // Pega a função login do store.
 
 const handleLogin = async () => {
     try {
-        const payload = {
-            email: loginEmail.value,
-            senha: loginSenha.value,
-        };
-        console.log('Enviando para a API:', payload);
-
         const response = await axios.post('http://localhost:3000/api/auth/login', {
             email: loginEmail.value,
             senha: loginSenha.value,
         });
 
-        // Armazena o token
-        localStorage.setItem('accessToken', response.data.accessToken);
-
-        // Redireciona o usuário para a página o dashboard.
-        router.push('/inicio'); 
+        // Chama a função 'login' do store, passando o token.
+        login(response.data.accessToken);
 
     } catch (error: any) {
         if (error.response && error.response.status === 401) {

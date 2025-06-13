@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useAuthStore } from './stores/authStore';
+// Pega o estado reativo e a função de logout do store.
+const { isAuthenticated, logout } = useAuthStore();
+
+const handleLogout = () => {
+  // Chama a função de logout.
+  logout();
+};
+
 </script>
 
 <template>
@@ -41,12 +50,22 @@ import { RouterLink, RouterView } from 'vue-router'
           </form>
           <!-- FIM SEARCHBAR -->
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/cadastro">Cadastro</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/login">Entrar</router-link>
-            </li>
+            <template v-if="!isAuthenticated">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/cadastro">Cadastro</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/login">Entrar</router-link>
+              </li>
+            </template>
+            <template v-else>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/dashboard">Minha Conta</router-link>
+              </li>
+              <li class="nav-item">
+                <button @click="handleLogout" class="nav-link">Sair</button>
+              </li>
+            </template>
           </ul>
         </div>
       </div>
