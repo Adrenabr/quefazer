@@ -23,6 +23,9 @@ quefazer/           # Diretório raiz        <br>
 * npm create vue@latest
 * npm install express-validator
 * npm install jsonwebtoken
+* npm install --save-dev jest
+* npm install --save-dev supertest
+* npm install --save-dev cross-env
 
 ## FRONT-END ##
 * cd frontend
